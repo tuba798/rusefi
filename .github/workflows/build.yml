@@ -33,11 +33,11 @@ jobs:
         cd firmware
         make ini BOARD=stm32f407-discovery
 
- - name: Upload firmware and ini artifacts
-  uses: actions/upload-artifact@v4
-  with:
-    name: rusefi-f407
-    path: |
-      firmware/build/*.bin
-      firmware/tunerstudio/output/*.ini
-      firmware/generated/*.ini
+    - name: Upload firmware and ini artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: rusefi-f407
+        path: |
+          firmware/build/*.bin
+          firmware/tunerstudio/output/*.ini
+          firmware/generated/*.ini
