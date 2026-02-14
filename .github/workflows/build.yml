@@ -1,9 +1,9 @@
 name: Build rusEFI firmware (F407 Discovery)
 
 on:
-  workflow_dispatch:   # permite rodar manualmente pelo GitHub Actions
+  workflow_dispatch:
   push:
-    branches: [ main ] # também roda automaticamente em cada commit na branch main
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -28,8 +28,15 @@ jobs:
         cd firmware
         make BOARD=stm32f407-discovery
 
-    - name: Upload firmware artifact
-      uses: actions/upload-artifact@v4   # versão atualizada
+    - name: Generate TunerStudio INI
+      run: |
+        cd firmware
+        make ini BOARD=stm32f407-discovery
+
+    - name: Upload firmware and ini artifacts
+      uses: actions/upload-artifact@v4
       with:
         name: rusefi-f407
-        path: firmware/build/*.bin
+        path: |
+          firmware/build/*.bin
+          firmware/build/*.ini
