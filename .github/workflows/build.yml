@@ -1,0 +1,28 @@
+name: Build rusEFI firmware (F407 Discovery)
+
+on:
+  workflow_dispatch:   # permite rodar manualmente
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: true
+
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y build-essential cmake openjdk-11-jdk
+
+    - name: Build firmware for F407 Discovery
+      run: |
+        cd firmware
+        make BOARD=stm32f407-discovery
+
+    - name: Upload firmware artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: rusefi-f407
+        path: firmware/build/*.bin
