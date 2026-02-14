@@ -2,6 +2,10 @@ name: Build rusEFI firmware (F407 Discovery)
 
 on:
   workflow_dispatch:   # permite rodar manualmente pelo GitHub Actions
+  push:
+    branches: [ main ] # também roda automaticamente em cada commit na branch main
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -14,7 +18,10 @@ jobs:
         submodules: true
 
     - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install -y build-essential cmake openjdk-11-jdk
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake openjdk-11-jdk \
+          gcc-arm-none-eabi binutils-arm-none-eabi
 
     - name: Build firmware for F407 Discovery
       run: |
@@ -22,7 +29,7 @@ jobs:
         make BOARD=stm32f407-discovery
 
     - name: Upload firmware artifact
-      uses: actions/upload-artifact@v4   # atualizado para v4
+      uses: actions/upload-artifact@v4   # versão atualizada
       with:
         name: rusefi-f407
         path: firmware/build/*.bin
