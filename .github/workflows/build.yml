@@ -35,9 +35,8 @@ jobs:
 
     - name: Debug - List generated files
       run: |
-        cd firmware
-        echo "=== Conteúdo da pasta firmware ==="
-        ls -R
+        echo "=== Conteúdo da pasta config/boards/stm32f407-discovery ==="
+        ls -R config/boards/stm32f407-discovery
 
     - name: Upload firmware and ini artifacts
       uses: actions/upload-artifact@v4
