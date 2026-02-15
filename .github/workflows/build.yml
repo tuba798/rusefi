@@ -45,5 +45,4 @@ jobs:
         name: rusefi-f407
         path: |
           firmware/build/*.bin
-          firmware/tunerstudio/output/*.ini
-          firmware/generated/*.ini
+          config/boards/stm32f407-discovery/config/tunerstudio/generated/*.ini
